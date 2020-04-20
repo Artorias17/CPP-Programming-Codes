@@ -1,6 +1,10 @@
 LCM of (a, b)= (a*b)/GCD(a, b)
 LCM of a bunch of numbers can be found by multiplying the each (prime factors^highest power) of all the numbers.
 
+
+https://www.campusgate.co.in/2019/05/number-theory-formulas.html
+
+
 Let, 
 N= (a^p)*(b^q)*(c^r)*... where a,b,c are primes and p,q,r are powers
  
