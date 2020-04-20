@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>
+using namespace std;
+bool p[46343];
+int s= sizeof(p)/ sizeof(p[0]);
+int lim=(int)sqrt(s);
+void seive(){
+    memset(p, 1, sizeof(p));
+    for(int i=4; i<s; i+=2){
+        p[i]=false;
+    }
+    for(int a=3; a<=lim; a+=2){
+        if(p[a]){
+            for(int b=a*a; b<s; b+=a+a){
+                p[b]=false;
+            }
+        }
+    }
+}
+long get(long num){
+    if(num<s && p[num])
+        return 0;
+    long nonGcdOf1=num, diffcom=1, sqroot=(long)sqrt(num), coprimes=num;
+    for(long f=2; f<=sqroot; f+=2){
+        if(p[f] && num%f==0){
+            coprimes*=(1 - (1.0) / f);
+            long power=0;
+            while(num%(long)pow(f, power+1)==0) power++;
+            num/=(long)pow(f, power);
+            diffcom*=(power+1);
+        }
+        if(f==2) f--;
+    }
+    if(num!=1){
+        coprimes*=(1 - (1.0) / num);
+        diffcom*=2;
+    }
+    nonGcdOf1= (nonGcdOf1 - coprimes) - (diffcom - 1);
+    return nonGcdOf1;
+}
+int main() {
+    seive();
+    long n;
+    while(cin>>n){
+        cout<< get(n) << endl;
+    }
+}
+
+/* Logic:
+ * We know that coprimes less than n can be found by
+ * N(1-(1/p1))(1-(1/p2))(1-(1/p2))...
+ * Here, p1, p2, p3 are prime factors of N.
+ * Also, number of divisors can be found by the
+ * product of each prime's (power+1).
+ * From this we substract 1, as 1 isn't needed here.
+ * Now, the idea is that N - number of coprimes
+ * will give us the number of numbers whose
+ * gcd with N isn't 1. From that if we subtract
+ * the number of divisors excluding 1 we will get
+ * the number of numbers whose gcd with N isn;t the
+ * number itself or 1.
+ */
