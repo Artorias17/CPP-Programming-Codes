@@ -1,34 +1,20 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
-int main(){
-    int t;
-    cin>>t;
-    while(t--){
+int main() {
+    int x;
+    cin>> x;
+    while (x--){
         int n;
-        cin>>n;
-        int count=0;
-        if(n>3){
-            for(int i=(n%2==0)? n-1 : n; i>0; i-=2){
-                cout<< i << " ";
-                count++;
-            }
-            cout<< 4;
-            for(int i=2; i<=n; i+=2){
-                if(i!=4){
-                    cout << " " << i;
-                }
-            }
-            cout<< endl;
-        }else{
-            cout<< -1 << endl;
+        cin >> n;
+        int arr[n];
+        for(int i=n, j=0 ; j<n; ++j, --i) arr[j] = i;
+        if(n%2 != 0){
+            arr[n-1]= arr[n/2];
+            arr[n/2]=1;
         }
+        for(int i=0 ; i<n-1; ++i) cout << arr[i] << " ";
+        cout << arr[n-1] << '\n';
     }
     return 0;
 }
-
-/*Logic:
- * Put all odd numbers in decreasing order.
- * Then put 4 and 2.
- * After that put all even numbers from 6 in ascending order.
- */
